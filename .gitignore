@@ -15,7 +15,8 @@ project/boot/
 project/plugins/project/
 
 # IntelliJ stuff
-.idea
+!.idea/
+.idea/*
 *.iml
 *.ipr
 *.iws
@@ -28,7 +29,7 @@ project/plugins/project/
 !/out/.gitignore
 /lib/*
 !/lib/.gitignore
-!idea/runConfigurations
+!.idea/runConfigurations
 
 .settings/*
 

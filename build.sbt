@@ -30,6 +30,7 @@ libraryDependencies ++= Seq(
 // for @Lenses macro support
 addCompilerPlugin("org.scalamacros" %% "paradise" % "2.1.0" cross CrossVersion.full)
 
+libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.6"
 libraryDependencies += "org.scala-lang.modules" %% "scala-pickling" % "0.10.1"
 libraryDependencies += "com.gilt" %% "gfc-semver" % "0.0.3"
 libraryDependencies += "org.scala-graph" %% "graph-core" % "1.11.2"

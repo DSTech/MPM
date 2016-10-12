@@ -3,12 +3,10 @@ package Dependency
 import Types.Build
 
 class BuildSorter {
+  //TODO: Add test for this ensuring builds are sorted by dependency
   def SortBuilds(builds: Seq[Build]): List[Build] = TopoSortBuilds(builds)
 
   private def TopoSortBuilds(builds: Seq[Build]): List[Build] = {
-    val buildDependencyPairs = builds.flatMap(build => build.dependencies.map(dep => (build.mod.name, dep._1.name)))
-    val order = TopologySorter.TopologicalSortEqEdges(buildDependencyPairs)
-    val nameMapping = builds.map(b => b.mod.name -> b)(collection.breakOut): Map[String, Build]
-    order.map(nameMapping(_))
+    TopologySorter.TopologicalSortEdgesByKey[Build, String](builds)(b => b.mod.name, b => b.dependencies.map(dep => dep._1.name))
   }
 }

@@ -17,5 +17,13 @@ object Main {
     //val unpik = pkld.unpickle[PickleMap[String, Int]]
     //val unpik = pkld.unpickle[Person]
     //Console.println(unpik)
+
+
+
+    val i: Option[Int] = None
+    i match {
+      case Some(value: Int) => Console.println("i: " + i)
+      case _ => Console.println("No value!")
+    }
   }
 }
