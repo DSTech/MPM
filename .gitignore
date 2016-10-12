@@ -28,6 +28,7 @@ project/plugins/project/
 !/out/.gitignore
 /lib/*
 !/lib/.gitignore
+!idea/runConfigurations
 
 .settings/*
 
