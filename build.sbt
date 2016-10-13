@@ -30,6 +30,9 @@ libraryDependencies ++= Seq(
 // for @Lenses macro support
 addCompilerPlugin("org.scalamacros" %% "paradise" % "2.1.0" cross CrossVersion.full)
 
+libraryDependencies += "com.github.scala-incubator.io" %% "scala-io-core" % "0.4.3"
+libraryDependencies += "com.github.scala-incubator.io" %% "scala-io-file" % "0.4.3"
+
 libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.6"
 libraryDependencies += "org.scala-lang.modules" %% "scala-pickling" % "0.10.1"
 libraryDependencies += "com.gilt" %% "gfc-semver" % "0.0.3"
