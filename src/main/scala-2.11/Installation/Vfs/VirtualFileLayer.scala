@@ -81,7 +81,7 @@ case class VirtualFileLayer(files: Map[Path, VirtualFile], deletions: Set[Path],
   /**
     * Returns a list containing the parents of this layer, but not this layer itself.
     *
-    * @return
+    * @return A list of parents in ascending order of distance from this element.
     */
   def parents: List[VirtualFileLayer] = {
     this.parent match {

@@ -7,6 +7,7 @@ version := "1.0"
 scalaVersion := "2.11.8"
 resolvers += Resolver.sonatypeRepo("releases")
 
+libraryDependencies in ThisBuild <+= scalaVersion("org.scala-lang" % "scala-reflect" % _)
 
 libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "3.0.0",
@@ -14,9 +15,12 @@ libraryDependencies ++= Seq(
 )
 
 
+//libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.2"
 libraryDependencies += "io.argonaut" %% "argonaut" % "6.2-M1"
+libraryDependencies += "io.argonaut" %% "argonaut-scalaz" % "6.2-M1"
+libraryDependencies += "io.argonaut" %% "argonaut-monocle" % "6.2-M1"
 
-val monocleVersion = "1.2.2"
+val monocleVersion = "1.3.1"
 
 libraryDependencies ++= Seq(
   "com.github.julien-truffaut"  %%  "monocle-core"    % monocleVersion,
@@ -26,6 +30,8 @@ libraryDependencies ++= Seq(
   "com.github.julien-truffaut"  %%  "monocle-refined" % monocleVersion,
   "com.github.julien-truffaut"  %%  "monocle-law"     % monocleVersion % "test"
 )
+
+libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
 
 // for @Lenses macro support
 addCompilerPlugin("org.scalamacros" %% "paradise" % "2.1.0" cross CrossVersion.full)
