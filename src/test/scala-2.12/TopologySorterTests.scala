@@ -1,7 +1,9 @@
+package test
+
+import Dependency.TopologySorter
 import org.scalatest._
 
 import scalax.collection.GraphEdge.DiEdge
-import Dependency.TopologySorter
 
 class TopologySorterTests extends FlatSpec with Matchers {
   it should "Sort numbers" in {

@@ -3,7 +3,7 @@
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     <module name="mpm" />
     <setting name="path" value="" />
-    <setting name="package" value="" />
+    <setting name="package" value="test" />
     <setting name="vmparams" value="" />
     <setting name="params" value="" />
     <setting name="workingDirectory" value="file://." />

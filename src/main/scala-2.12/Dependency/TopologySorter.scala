@@ -35,10 +35,8 @@ object TopologySorter {
   }
 
   @tailrec
-  private def deCycleDiGraph[T](graph: Graph[T, DiEdge]): DecycledDiGraph[T, DiEdge] = graph match {
-    case g if g.isAcyclic => DecycledDiGraph(graph)
-    case g => deCycleDiGraph(eliminateCycle(graph))
-  }
+  private def deCycleDiGraph[T](graph: Graph[T, DiEdge]): DecycledDiGraph[T, DiEdge] =
+    if (graph.isAcyclic) DecycledDiGraph(graph) else deCycleDiGraph(eliminateCycle(graph))
 
   def topologicalSortDeCycle[T](edges: List[DiEdge[T]]): List[T] = {
     implicit def mkOps[A](x: A)(implicit ord: math.Ordering[A]): ord.Ops = ord.mkOrderingOps(x)
@@ -56,7 +54,7 @@ object TopologySorter {
       case Right(order) => order.toLayered
         .map(layer => (layer._1, layer._2.toSeq.sortBy(x => originalOrderMap.getOrElse(x, Int.MinValue)))) //Sort contents of layers by original order
         .flatMap(_._2.map(_.value)).to[List]
-      case Left(cycle) => assert(assertion = false, "Cycles should not reach this point"); throw new IllegalStateException()
+      case Left(_) => assert(assertion = false, "Cycles should not reach this point"); throw new IllegalStateException()
     }
   }
 
@@ -69,7 +67,6 @@ object TopologySorter {
     val itemToId: Map[T, K] = idToItem.map(_.swap)(collection.breakOut)
     val dependencyPairs =
       for (item <- items; dependency <- getDependenciesForItem(item)) yield {
-        //TODO: Assert, or ignore impossible keys?
         assert(idToItem.contains(dependency))//Can't return items that don't exist in the input set
         (itemToId(item), dependency)
       }

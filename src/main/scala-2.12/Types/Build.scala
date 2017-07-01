@@ -1,6 +1,6 @@
 package Types
 
-import com.gilt.gfc.semver.SemVer//TODO: Replace with version range of some sort
+import sbt.VersionNumber
 
 //TODO: Add a [[BuildSpec]] type for specifying a range of properties, to act as a filter on dependency resolution
 
@@ -12,4 +12,4 @@ import com.gilt.gfc.semver.SemVer//TODO: Replace with version range of some sort
   * @param dependencies Mods with exact versions of dependencies
   * @note Architecture Bitness is assumed to be 64.
   */
-case class Build(mod: Mod, arch: Arch, platform: Platform, version: SemVer, dependencies: Array[(Mod, SemVer)])
+case class Build(mod: Mod, arch: Arch, platform: Platform, version: VersionNumber, dependencies: Array[(Mod, VersionNumber)])
