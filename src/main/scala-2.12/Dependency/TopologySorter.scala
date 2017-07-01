@@ -8,9 +8,9 @@ import scala.annotation.tailrec
 import scalax.collection.GraphPredef
 
 case class DecycledDiGraph[T, E[X] <: GraphPredef.EdgeLikeIn[X]] private(graph: Graph[T, E]) {
-  def isCyclic: Boolean = graph.isCyclic
+  def isCyclic: Boolean = false
 
-  def isAcyclic: Boolean = graph.isAcyclic
+  def isAcyclic: Boolean = true
 
   implicit def toGraph: Graph[T, E] = graph
 }
@@ -26,12 +26,8 @@ object TopologySorter {
   }
 
   private def eliminateCycle[T](graph: Graph[T, DiEdge]): Graph[T, DiEdge] = {
-    assert(graph.isCyclic)
-    val result = graph.findCycle match {
-      case Some(cycle) => graph - cycle.edges.last
-      case None => assert(assertion = false, "Must be cyclic to reach this point"); throw new IllegalStateException()
-    }
-    result
+    require(graph.isCyclic)
+    graph - graph.findCycle.head.edges.last
   }
 
   @tailrec

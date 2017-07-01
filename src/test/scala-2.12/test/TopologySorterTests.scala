@@ -1,7 +1,7 @@
 package test
 
 import Dependency.TopologySorter
-import org.scalatest._
+import org.scalatest.{FlatSpec, Matchers}
 
 import scalax.collection.GraphEdge.DiEdge
 
@@ -34,8 +34,7 @@ class TopologySorterTests extends FlatSpec with Matchers {
       (8, 7))
     val edges = pairs.map(x => new DiEdge[Int](x._1, x._2))
     val topology = TopologySorter.topologicalSortDeCycle(edges.toList) match {
-      case topology: List[Int] =>
-        topology
+      case topology: List[Int] => topology
     }
     //topology should contain theSameElementsInOrderAs Seq(1, 0, 2, 3, 4, 5, 6, 7)
     for (pair <- pairs if pair != (7, 1)) topology should contain inOrder(pair._1, pair._2)
