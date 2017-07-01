@@ -1,17 +1,17 @@
 package Types
 
-import com.gilt.gfc.semver.SemVer
+import sbt.VersionNumber
 
 sealed trait Arch {
   def name: String
-  def version: SemVer
+  def version: VersionNumber
 }
 
 object Arch {
   trait Minecraft extends Arch {
     val name = "Minecraft"
-    def version: SemVer
+    def version: VersionNumber
   }
-  case object Minecraft1_7_10 extends Minecraft { val version:SemVer = SemVer.apply("1.7.10") }
-  case object Minecraft1_9_4 extends Minecraft { val version:SemVer = SemVer.apply("1.9.4") }
+  case object Minecraft1_7_10 extends Minecraft { val version:VersionNumber = VersionNumber.apply("1.7.10") }
+  case object Minecraft1_9_4 extends Minecraft { val version:VersionNumber = VersionNumber.apply("1.9.4") }
 }

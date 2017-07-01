@@ -109,7 +109,7 @@ object VersionNumber {
 
     private[this] def doIsCompat(v1: VersionNumber, v2: VersionNumber): Boolean =
       (v1, v2) match {
-        case (v1, v2) if (v1.size >= 2) && (v2.size >= 2) => // A normal version number MUST take the form X.Y.Z
+        case _ if (v1.size >= 2) && (v2.size >= 2) => // A normal version number MUST take the form X.Y.Z
           (v1._1.get, v1._2.get, v1._3.getOrElse(0), v1.tags, v2._1.get, v2._2.get, v2._3.getOrElse(0), v2.tags) match {
             case (0L, _, _, _, 0L, _, _, _) =>
               // Major version zero (0.y.z) is for initial development. Anything may change at any time. The public API should not be considered stable.
@@ -143,9 +143,9 @@ object VersionNumber {
 
     private[this] def doIsCompat(v1: VersionNumber, v2: VersionNumber): Boolean =
       (v1, v2) match {
-        case (v1, v2) if (v1.size >= 3) && (v2.size >= 3) => // A normal version number MUST take the form X.Y.Z
+        case _ if (v1.size >= 3) && (v2.size >= 3) => // A normal version number MUST take the form X.Y.Z
           (v1._1.get, v1._2.get, v1._3.get, v1.tags, v2._1.get, v2._2.get, v2._3.get, v2.tags) match {
-            case (x1, y1, 0, ts1, x2, y2, 0, ts2) if ts1.nonEmpty || ts2.nonEmpty =>
+            case (_, _, 0, ts1, _, _, 0, ts2) if ts1.nonEmpty || ts2.nonEmpty =>
               // A pre-release version MAY be denoted by appending a hyphen and a series of dot separated identifiers
               equalsIgnoreExtra(v1, v2)
             case (x1, y1, _, _, x2, y2, _, _) =>
