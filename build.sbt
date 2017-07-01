@@ -10,7 +10,8 @@ scalaVersion := "2.12.2-bin-typelevel-4"
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
 
-libraryDependencies in ThisBuild <+= scalaVersion("org.typelevel" % "scala-reflect" % _)
+libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value % "provided"
+scalacOptions ++= Seq("-Yinduction-heuristics", "-Ykind-polymorphism", "-Yliteral-types", "-Xstrict-patmat-analysis", "-Xexperimental")
 
 libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "3.0.3",
