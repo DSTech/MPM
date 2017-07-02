@@ -1,6 +1,5 @@
 package Dependency
 import Types._
-import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
 class DependencyResolver {
 
@@ -14,8 +13,8 @@ class DependencyResolver {
   //
   type BuildSpec//TODO: stub
 
-  def Resolve(configurationSpec: ConfigurationSpec): Configuration = throw new NotImplementedError()
+  def Resolve(configurationSpec: ConfigurationSpec): Configuration = ???
 
-  def Resolve(build: BuildSpec): Build = throw new NotImplementedError()
+  def Resolve(build: BuildSpec): Build = ???
 
 }

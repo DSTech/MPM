@@ -1,18 +1,19 @@
 package Installation.Vfs
 
 import scala.annotation.tailrec
+import scala.reflect.io.AbstractFile
 import scala.tools.nsc.io.Path
 
 
 /**
   * A list of files in a filesystem; Layers are modifiers atop each other, with a list of additions and deletions
   *
-  * @param files     [[scala.collection.Map]]([[Path]], [[VirtualFile]])Tracks direct contents of this filesystem
+  * @param files     [[scala.collection.Map]]([[Path]], [[scala.reflect.io.VirtualFile]])Tracks direct contents of this filesystem
   * @param deletions [[[scala.collection.Set]]([[Path]]) files removed by the filesystem layer
   * @param parent    [[Installation.Vfs.VirtualFileLayer]] If provided, the layer above this one to which we defer when an unknown path is requested
   */
-case class VirtualFileLayer(files: Map[Path, VirtualFile], deletions: Set[Path], parent: Option[VirtualFileLayer]) {
-  def apply(path: Path): Option[VirtualFile] = {
+case class VirtualFileLayer(files: Map[Path, AbstractFile], deletions: Set[Path], parent: Option[VirtualFileLayer]) {
+  def apply(path: Path): Option[AbstractFile] = {
     files.get(path) match {
       case Some(virtualFile) => Some(virtualFile)
       case None => {
@@ -55,7 +56,7 @@ case class VirtualFileLayer(files: Map[Path, VirtualFile], deletions: Set[Path],
       case Some(p) => {
         val dels = this.files.map(f => VirtualFileRemoval(f._1))
         val readds = dels.map(del => (del.path, p(del.path))).flatMap({
-          case (path: Path, Some(file: VirtualFile)) => Seq((path, file))
+          case (path: Path, Some(file: AbstractFile)) => Seq((path, file))
           case (_, None) => Seq()
         }).map { case (path, file) => VirtualFileAddition(path, file) }
         dels ++ readds
@@ -69,7 +70,7 @@ case class VirtualFileLayer(files: Map[Path, VirtualFile], deletions: Set[Path],
     val additions = parent match {
       case Some(p) => {
         this.deletions.map(delPath => (delPath, p(delPath))).flatMap({
-          case (path: Path, Some(file: VirtualFile)) => Seq((path, file))
+          case (path: Path, Some(file: AbstractFile)) => Seq((path, file))
           case (_, None) => Seq()
         }).map(f => VirtualFileAddition(f._1, f._2))
       }

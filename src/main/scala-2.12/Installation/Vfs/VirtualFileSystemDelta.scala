@@ -40,7 +40,7 @@ object VirtualFileSystemDelta {
     val (subtractions, additions) = (initial, result) match {
       case (i, r) if i == r => (List.empty, List.empty) //No reason to perform 2 layer changes just to reset to current
       case (i, r) => {
-        val (startParents, destParents) = (result.parents, initial.parents)
+        val (startParents, destParents) = (r.parents, i.parents)
         firstCommon(startParents, destParents) match {
           case Some(commonParent: VirtualFileLayer) => {
             val subtractions = initial :: startParents.takeWhile(_ != commonParent) //Subtract nearest to start first
