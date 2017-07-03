@@ -2,7 +2,7 @@ package Extensions
 
 object SetX {
 
-  implicit class SeqXSet[T](seq: Seq[T]) {
+  final implicit class SeqXSet[T](val seq: Seq[T]) extends AnyVal {
     def toSet: Set[T] = Set(seq: _*)
   }
 

@@ -1,5 +1,5 @@
 package Installation.Vfs
 
-abstract class VirtualFileSystem extends {
+abstract class VirtualFileSystem {
 
 }

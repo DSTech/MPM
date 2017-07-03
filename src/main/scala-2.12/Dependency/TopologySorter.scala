@@ -60,7 +60,7 @@ object TopologySorter {
 
   def TopologicalSortEdgesByKey[T, K](items: Seq[T])(idFor: T => K, getDependenciesForItem: T => Seq[K]): List[T] = {
     val idToItem: Map[K, T] = items.map(item => idFor(item) -> item)(collection.breakOut)
-    val itemToId: Map[T, K] = idToItem.map(_.swap)(collection.breakOut)
+    val itemToId: Map[T, K] = { idToItem.map(_.swap)(collection.breakOut) : Map[T, K] }
     val dependencyPairs =
       for (item <- items; dependency <- getDependenciesForItem(item)) yield {
         assert(idToItem.contains(dependency))//Can't return items that don't exist in the input set

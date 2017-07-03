@@ -13,15 +13,13 @@ object FutureX {
     val promise = Promise[T]
     val t = new Timer()
     t.schedule(new TimerTask {
-      override def run(): Unit = {
-        promise.complete(Try(block))
-      }
+      override def run(): Unit = promise.complete(Try(block))
     }, waitMillis)
     promise.future
   }
 
-  implicit class FlattenFutures[T](val future: Future[Future[T]]) extends AnyVal {
-    def flatten(implicit ec: ExecutionContext): Future[T] = future.flatMap(x => x)
+  final implicit class FlattenFutures[T](val future: Future[Future[T]]) extends AnyVal {
+    def flatten(implicit ec: ExecutionContext): Future[T] = future.flatMap(identity)
   }
 
 }
